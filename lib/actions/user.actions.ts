@@ -16,6 +16,8 @@ export async function createUser(user: CreateUserParams) {
     await connectToDatabase()
 
     const newUser = await User.create(user)
+
+    console.log(newUser)
     return JSON.parse(JSON.stringify(newUser))
   } catch (error) {
     handleError(error)
@@ -44,6 +46,7 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {
     })
 
     if (!updatedUser) throw new Error('User update failed')
+
     return JSON.parse(JSON.stringify(updatedUser))
   } catch (error) {
     handleError(error)
