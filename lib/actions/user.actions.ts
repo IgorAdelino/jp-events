@@ -15,8 +15,6 @@ export async function createUser(user: CreateUserParams) {
   try {
     await connectToDatabase()
 
-    return Response.json({ message: user, status: 404 })
-
     const newUser = await User.create(user)
 
     return JSON.parse(JSON.stringify(newUser))
@@ -57,8 +55,6 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {
 export async function deleteUser(clerkId: string) {
   try {
     await connectToDatabase()
-
-    return Response.json({ message: 'erro no banco', status: 404 })
 
     // Find user to delete
     const userToDelete = await User.findOne({ clerkId })
