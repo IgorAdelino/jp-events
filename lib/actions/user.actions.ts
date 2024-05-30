@@ -13,11 +13,18 @@ import User from '../database/models/user-model'
 
 export async function createUser(user: CreateUserParams) {
   try {
-    await connectToDatabase()
+    // await connectToDatabase()
 
-    const newUser = await User.create(user)
+    // const newUser = await User.create(user)
 
-    return JSON.parse(JSON.stringify(newUser))
+    // return JSON.parse(JSON.stringify(newUser))
+
+    const newUser = {
+      ...user,
+      _id: 'ajsdhrfoiahjfioajfpklajmkfal122',
+    }
+
+    return newUser
   } catch (error) {
     handleError(error)
   }
