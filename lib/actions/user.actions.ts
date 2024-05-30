@@ -8,17 +8,15 @@ import { handleError } from '@/lib/utils'
 
 import { CreateUserParams, UpdateUserParams } from '@/types'
 import User from '../database/models/user-model'
-import connectToDatabase from '../database'
+import { connectToDatabase } from '../database'
 
 export async function createUser(user: CreateUserParams) {
   try {
     await connectToDatabase()
-    console.log('DESGRAÇA')
     const newUser = await User.create(user)
 
     return JSON.parse(JSON.stringify(newUser))
   } catch (error) {
-    console.log(error)
     handleError(error)
   }
 }
@@ -32,7 +30,7 @@ export async function getUserById(userId: string) {
     if (!user) throw new Error('User not found')
     return JSON.parse(JSON.stringify(user))
   } catch (error) {
-    return error
+    handleError(error)
   }
 }
 
