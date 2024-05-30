@@ -58,14 +58,13 @@ export async function POST(req: Request) {
       photo: image_url,
     }
     const newUser = await createUser(user)
+
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
           userId: newUser._id,
         },
       })
-    } else {
-      return Response.json({ message: 'Error creating user' })
     }
     return NextResponse.json({ message: 'OK', user: newUser })
   }
@@ -83,6 +82,7 @@ export async function POST(req: Request) {
   if (eventType === 'user.deleted') {
     const { id } = evt.data
     const deletedUser = await deleteUser(id!)
+
     return NextResponse.json({ message: 'OK', user: deletedUser })
   }
   return new Response(eventType, { status: 200 })
