@@ -82,7 +82,6 @@ export async function deleteUser(clerkId: string) {
 
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null
   } catch (error) {
-    return Response.json(error, { status: 404 })
-    // handleError(error)
+    handleError(error)
   }
 }
