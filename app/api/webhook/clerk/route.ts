@@ -5,8 +5,7 @@ import { createUser, deleteUser, updateUser } from '@/lib/actions/user.actions'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
-  // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
-  console.log('Chamou')
+  console.log('WEBHOOK CALLED')
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
 
   if (!WEBHOOK_SECRET) {
@@ -56,6 +55,8 @@ export async function POST(req: Request) {
   const eventType = evt.type
 
   if (eventType === 'user.created') {
+    console.log('Chamou')
+
     const { id, email_addresses, image_url, first_name, last_name, username } =
       evt.data
 
