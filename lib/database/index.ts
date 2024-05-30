@@ -1,29 +1,32 @@
 import mongoose from 'mongoose'
 
-const MONGODB_URI = process.env.MONGODB_URI
-
-const cached = (global as any).mongoose || { conn: null, promise: null }
-
-export const connectToDatabase = async () => {
-  try {
-    if (cached.conn) {
-      console.log('aqui')
-      return cached.conn
-    }
-
-    console.log('Opa')
-
-    if (!MONGODB_URI) throw new Error('MONGODB_URI is missing')
-
-    cached.promise = mongoose.connect(MONGODB_URI, {
-      dbName: 'evently',
-      bufferCommands: false,
-    })
-
-    cached.conn = await cached.promise
-
-    return cached.conn
-  } catch (error) {
-    return error
-  }
+const MONGO_URI = process.env.MONGO_URI
+const cached: any = {
+  connection: null,
+  promise: null,
 }
+async function connectToDatabase() {
+  if (!MONGO_URI) {
+    throw new Error(
+      'Please define the MONGO_URI environment variable inside .env.local',
+    )
+  }
+  if (cached.connection) {
+    return cached.connection
+  }
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    }
+    cached.promise = mongoose.connect(MONGO_URI, opts)
+  }
+  try {
+    cached.connection = await cached.promise
+    console.log('database connected successfully!')
+  } catch (e) {
+    cached.promise = null
+    throw e
+  }
+  return cached.connection
+}
+export default connectToDatabase
