@@ -67,7 +67,7 @@ export async function POST(req: Request) {
         },
       })
     }
-    return NextResponse.json({ message: 'OK', user: newUser })
+    return Response.json({ message: 'OK', user: newUser })
   }
   if (eventType === 'user.updated') {
     const { id, image_url, first_name, last_name, username } = evt.data
@@ -83,7 +83,11 @@ export async function POST(req: Request) {
   if (eventType === 'user.deleted') {
     const { id } = evt.data
 
-    const deletedUser = await deleteUser(id!)
+    if (!id) {
+      return NextResponse.json({ message: 'User not found' }, { status: 404 })
+    }
+
+    const deletedUser = await deleteUser(id)
 
     return NextResponse.json({ message: 'OK', user: deletedUser })
   }
