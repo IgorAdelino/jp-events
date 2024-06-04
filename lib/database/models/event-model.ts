@@ -21,7 +21,7 @@ const EventsSchema = new Schema({
   description: { type: String },
   location: { type: String },
   createdAt: { type: Date, default: Date.now },
-  imageUrl: { type: Date, required: true },
+  imageUrl: { type: String, required: true },
   startDateTime: { type: Date, required: true },
   endDateTime: { type: Date, default: Date.now },
   price: { type: String },
