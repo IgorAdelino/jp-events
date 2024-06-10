@@ -63,7 +63,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
             data={events?.data}
             emptyTitle="No Events Found"
             emptyStateSubtext="Come back later"
-            collectionType="All_events"
+            collectionType="All_Events"
             limit={6}
             page={page}
             totalPages={events?.totalPages}

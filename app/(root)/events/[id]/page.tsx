@@ -29,6 +29,9 @@ const EventDetails = async ({
             alt="hero image"
             width={1000}
             height={1000}
+            layout="responsive"
+            objectFit="cover"
+            priority={true}
             className="h-full min-h-[300px] object-cover object-center"
           />
 
